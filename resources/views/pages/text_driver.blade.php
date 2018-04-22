@@ -13,7 +13,7 @@
                                 {{ csrf_field() }}
                                 <div class="row form-group">
                                     <label for="telephone">Telephone</label>
-                                    <input type="tel" name="telephone" class="form-control text-center" id="telephone" value="{{ old('telephone') }}" required>
+                                    <input type="tel" name="telephone" placeholder="233240000000" class="form-control text-center" id="telephone" value="{{ old('telephone') }}" required>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-lg-6"></div>

@@ -37,7 +37,7 @@ class SendVerificationCode extends Command
      *
      * @return void
      */
-    public function __construct($telephone, $code)
+    public function __construct($telephone = null, $code = null)
     {
         parent::__construct();
         $this->code = $code;

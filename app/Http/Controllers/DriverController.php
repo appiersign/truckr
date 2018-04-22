@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Console\Commands\SendVerificationCode;
+use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class DriverController extends Controller
 {
@@ -39,9 +41,33 @@ class DriverController extends Controller
         $job = ( new SendVerificationCode($request->input('telephone'), $code));
         $this->dispatch($job);
 
-//        Session::put('verify', $code);
+        Session::put('verify', $code);
 
-        return redirect()->route('drivers.index', ['code' => $code, 'response' => $job->getResponse()]);
+        return view('pages.verify_code');
+    }
+
+    public function text_form()
+    {
+        return view('pages.verify_code');
+    }
+
+    public function verify(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'code' => 'bail|required|digits:4'
+        ]);
+
+        $validator->after( function ($validator) use ($request) {
+            if ($request->input('code') <> Session::get('verify')) {
+                $validator->errors()->add('code', 'wrong code');
+            }
+        });
+
+        if ($validator->fails()) {
+            return redirect()->route('drivers.text')->withErrors($validator);
+        }
+
+        return 'success';
     }
 
     /**
