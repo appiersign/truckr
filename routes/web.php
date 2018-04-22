@@ -21,7 +21,6 @@ Route::resource('owners', 'OwnerController');
 Route::resource('locations', 'LocationController');
 Route::resource('messages', 'MessageController');
 Route::resource('trackers', 'TrackerController');
-Route::resource('licenses', 'LicenseController');
 Route::resource('trips', 'TripController');
 
 Route::get('/home', 'HomeController@index')->name('home');
