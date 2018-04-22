@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Console\Commands\CreateDriver;
 use App\Console\Commands\SendVerificationCode;
+use App\Driver;
 use function foo\func;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -42,6 +45,7 @@ class DriverController extends Controller
         $this->dispatch($job);
 
         Session::put('verify', $code);
+        Session::put('telephone', $request->input('telephone'));
 
         return view('pages.verify_code');
     }
@@ -67,7 +71,7 @@ class DriverController extends Controller
             return redirect()->route('drivers.text')->withErrors($validator);
         }
 
-        return 'success';
+        return redirect()->route('register')->with('telephone', Session::get('telephone'));
     }
 
     /**
@@ -78,7 +82,25 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'class_type' => 'required|string|size:1',
+            'license_pin' => 'required|string',
+            'date_issued' => 'required|string',
+            'date_expired' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+        try {
+
+            $job = ( new CreateDriver(Auth::id(), $request->input('license_pin'), $request->input('class_type'), $request->input('date_issued'), $request->input('date_expired')) );
+            $this->dispatch($job);
+            return 'success';
+
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
     }
 
     /**
