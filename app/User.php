@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getFirstNameAttribute($first_name)
+    {
+        return $this->attributes['first_name'] = ucwords($first_name);
+    }
+
+    public function getLastNameAttribute($last_name)
+    {
+        return $this->attributes['last_name'] = ucfirst($last_name);
+    }
 }

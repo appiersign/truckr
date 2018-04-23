@@ -16,4 +16,9 @@ class Driver extends Model
         parent::__construct($attributes);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

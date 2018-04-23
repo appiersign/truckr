@@ -75,10 +75,8 @@ class DriverController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return $this|string
      */
     public function store(Request $request)
     {
@@ -109,9 +107,9 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Driver $driver)
     {
-        //
+        return $driver;
     }
 
     /**
@@ -120,9 +118,11 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Driver $driver)
     {
-        //
+//        $driver = Driver::with('user')->find($id);
+
+        return view('pages.update_driver', compact('driver'));
     }
 
     /**
@@ -132,7 +132,7 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Driver $driver)
     {
         //
     }
