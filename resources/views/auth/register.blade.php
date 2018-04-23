@@ -88,6 +88,7 @@
                                         <option value="">select account type</option>
                                         <option value="driver">Driver</option>
                                         <option value="loader">Load Owner</option>
+                                        <option value="owner">Truck Owner</option>
                                     </select>
 
                                     @if ($errors->has('account_type'))
