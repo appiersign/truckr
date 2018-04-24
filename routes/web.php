@@ -12,7 +12,7 @@ Auth::routes();
 //Route::get('drivers/text', 'DriverController@text_form')->name('drivers.text');
 Route::post('drivers/text', 'DriverController@text')->name('drivers.text');
 Route::get('drivers/text', 'DriverController@text_form');
-Route::post('drivers/verify', 'DriverController@verify')->name('drivers.verify');
+Route::post('users/verify', 'RegisterController@verify')->name('users.verify');
 
 // Generated Routes
 Route::resource('drivers', 'DriverController');

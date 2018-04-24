@@ -18,7 +18,7 @@
                         @endif
 
                         <div class="row">
-                            <form action="{{ route('drivers.verify') }}" class="form-horizontal col-lg-12"
+                            <form action="{{ route('users.verify') }}" class="form-horizontal col-lg-12"
                                   method="post">
                                 {{ csrf_field() }}
                                 <div class="row form-group">

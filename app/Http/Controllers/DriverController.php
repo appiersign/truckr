@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Console\Commands\CreateDriver;
 use App\Console\Commands\SendVerificationCode;
 use App\Driver;
-use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
