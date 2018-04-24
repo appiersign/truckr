@@ -120,7 +120,6 @@ class DriverController extends Controller
      */
     public function edit(Driver $driver)
     {
-//        $driver = Driver::with('user')->find($id);
 
         return view('pages.update_driver', compact('driver'));
     }
