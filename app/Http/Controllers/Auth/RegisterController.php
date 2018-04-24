@@ -40,9 +40,13 @@ class RegisterController extends Controller
 
     public function sendVerificationCode(Request $request)
     {
-        $this->validate($request, [
-            'telephone' => 'bail|required'
+        $validator = Validator::make($request->all(), [
+            'telephone' => 'bail|required|digits:12'
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $code = substr(str_shuffle('9517328460951732846095173284609517328460'), -4);
 
@@ -68,7 +72,7 @@ class RegisterController extends Controller
         });
 
         if ($validator->fails()) {
-            return redirect()->route('drivers.text')->withErrors($validator);
+            return redirect()->back()->withErrors($validator);
         }
 
         return redirect()->route('register')->with('telephone', Session::get('telephone'));
