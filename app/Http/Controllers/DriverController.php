@@ -29,7 +29,7 @@ class DriverController extends Controller
      */
     public function create()
     {
-        return view('pages.text_driver');
+        return view('pages.license_details');
     }
 
     /**
@@ -91,7 +91,8 @@ class DriverController extends Controller
      */
     public function update(Request $request, Driver $driver)
     {
-        //
+        $driver->user->first_name = $request->first_name;
+        $driver->user->save();
     }
 
     /**

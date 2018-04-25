@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <form method="POST" action="{{ route('drivers.store') }}">
     @csrf
 
@@ -78,3 +80,4 @@
         </div>
     </div>
 </form>
+@endsection

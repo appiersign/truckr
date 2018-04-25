@@ -9,6 +9,7 @@
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('drivers.update', $driver) }}">
+                        <<input type="hidden" name="_method" value="PUT">
                             @csrf
 
                             <div class="form-group row">
