@@ -41,7 +41,9 @@ class RegisterController extends Controller
     public function sendVerificationCode(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'telephone' => 'bail|required|digits:12'
+            'telephone' => 'bail|required|digits:12,|unique:users'
+        ], [
+            'telephone.digits' => 'enter number in international format'
         ]);
 
         if ($validator->fails()) {
@@ -113,5 +115,18 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    protected function registered(User $user)
+    {
+        if ($user <> null) {
+            if ($user->account_type === 'driver') {
+                return redirect()->route('drivers.create', compact('user'));
+            } else {
+                return 'different user';
+            }
+        } else {
+            return 'something went wrong';
+        }
     }
 }

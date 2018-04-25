@@ -25,7 +25,7 @@
                                     <label for="code">Verification Code</label>
                                     <input type="tel" name="code" placeholder="enter verification code"
                                            class="form-control text-center" id="code" value="{{ old('telephone') }}"
-                                           required>
+                                           required autofocus>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-lg-6"></div>

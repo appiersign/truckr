@@ -20,12 +20,12 @@
 
                                     <div class="col-md-8">
                                         <input type="tel" name="telephone" placeholder="233240000000"
-                                               class="form-control text-center" id="telephone"
-                                               value="{{ old('telephone') }}" required>
+                                               class="form-control text-center {{ ($errors->has('telephone'))? 'is-invalid' : '' }}" id="telephone"
+                                               value="{{ old('telephone') }}" required autofocus>
 
 
                                         @if ($errors->has('telephone'))
-                                            <span class="text-danger">
+                                            <span class="invalid-feedback">
                                                 <strong>{{ $errors->first('telephone') }}</strong>
                                             </span>
                                         @endif
