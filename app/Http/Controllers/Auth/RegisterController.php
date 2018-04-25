@@ -121,9 +121,11 @@ class RegisterController extends Controller
     {
         if ($user <> null) {
             if ($user->account_type === 'driver') {
-                return redirect()->route('drivers.create', compact('user'));
+                return redirect()->route('drivers.create');
+            } else if ($user->account_type === 'owner') {
+                return redirect()->route('owners.create');
             } else {
-                return 'different user';
+                return redirect()->route('loaders.create');
             }
         } else {
             return 'something went wrong';
