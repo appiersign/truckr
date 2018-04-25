@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CreateOwnerJob;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class OwnerController extends Controller
 {
@@ -23,7 +26,7 @@ class OwnerController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.owners.create');
     }
 
     /**
@@ -34,7 +37,21 @@ class OwnerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'business_name' => 'required|min:4'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            $job = new CreateOwnerJob(['business_name' => $request->business_name, 'user_id' => Auth::id()]);
+            $this->dispatch($job);
+            return redirect('/');
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
     }
 
     /**

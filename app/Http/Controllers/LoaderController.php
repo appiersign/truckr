@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CreateLoaderJob;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LoaderController extends Controller
 {
@@ -23,7 +26,7 @@ class LoaderController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.loaders.create');
     }
 
     /**
@@ -34,7 +37,26 @@ class LoaderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'position' => 'required',
+            'category' => 'required',
+            'business_name' => 'required',
+            'address' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            $data = $request->all();
+            $data['user_id'] = Auth::id();
+            $job = new CreateLoaderJob($data);
+            $this->dispatch($job);
+            return redirect('/');
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
     }
 
     /**
