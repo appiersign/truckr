@@ -36,4 +36,9 @@ class User extends Authenticatable
     {
         return $this->attributes['last_name'] = ucfirst($last_name);
     }
+
+    public function loader()
+    {
+        return $this->hasOne(Loader::class);
+    }
 }

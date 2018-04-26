@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\CreateLoaderJob;
+use App\Loader;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -53,7 +55,7 @@ class LoaderController extends Controller
             $data['user_id'] = Auth::id();
             $job = new CreateLoaderJob($data);
             $this->dispatch($job);
-            return redirect('home');
+            return redirect()->route('home');
         } catch (\Exception $exception) {
             return $exception->getMessage();
         }
@@ -62,35 +64,39 @@ class LoaderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Loader $loader
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Loader $loader)
     {
-        //
+        return view('pages.loaders.show', compact('loader'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Loader $loader
+     * @return Loader
      */
-    public function edit($id)
+    public function edit(Loader $loader)
     {
-        //
+        return view('pages.loaders.edit', compact('loader'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param Loader $loader
+     * @return void
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Loader $loader)
     {
-        //
+        $loader->address = $request->input('address');
+
+        $loader->save();
+
+        return redirect()->route('loaders.show', $loader);
     }
 
     /**
