@@ -1,0 +1,1 @@
+<a href="{{ route('loaders.edit', $user->loader->id) }}" class="btn btn-outline-warning">Edit Profile</a>

@@ -52,7 +52,7 @@ class DriverController extends Controller
 
             $job = ( new CreateDriver(Auth::id(), $request->input('license_pin'), $request->input('class_type'), $request->input('date_issued'), $request->input('date_expired')) );
             $this->dispatch($job);
-            return 'success';
+            return redirect()->route('home');
 
         } catch (\Exception $exception) {
             return $exception->getMessage();
@@ -67,7 +67,7 @@ class DriverController extends Controller
      */
     public function show(Driver $driver)
     {
-        return $driver;
+        return view('pages.drivers.show', compact('driver'));
     }
 
     /**
@@ -78,7 +78,6 @@ class DriverController extends Controller
      */
     public function edit(Driver $driver)
     {
-
         return view('pages.update_driver', compact('driver'));
     }
 
@@ -91,8 +90,18 @@ class DriverController extends Controller
      */
     public function update(Request $request, Driver $driver)
     {
-        $driver->user->first_name = $request->first_name;
+        $driver->user->first_name   = $request->input('first_name', $driver->user->first_name);
+        $driver->user->last_name    = $request->input('last_name', $driver->user->last_name);
+        $driver->user->telephone    = $request->input('telephone', $driver->user->telephone);
         $driver->user->save();
+
+        $driver->class_type         = $request->input('class_type', $driver->class_type);
+        $driver->license_date_issued = $request->input('license_date_issued', $driver->license_date_issued);
+        $driver->license_date_expired = $request->input('license_date_expired', $driver->license_date_expired);
+
+        if ($driver->save()) {
+            return redirect()->route('drivers.show', $driver);
+        }
     }
 
     /**
