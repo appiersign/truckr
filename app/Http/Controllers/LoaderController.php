@@ -53,7 +53,7 @@ class LoaderController extends Controller
             $data['user_id'] = Auth::id();
             $job = new CreateLoaderJob($data);
             $this->dispatch($job);
-            return redirect('/');
+            return redirect('home');
         } catch (\Exception $exception) {
             return $exception->getMessage();
         }

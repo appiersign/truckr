@@ -48,7 +48,7 @@ class OwnerController extends Controller
         try {
             $job = new CreateOwnerJob(['business_name' => $request->business_name, 'user_id' => Auth::id()]);
             $this->dispatch($job);
-            return redirect('/');
+            return redirect('home');
         } catch (\Exception $exception) {
             return $exception->getMessage();
         }

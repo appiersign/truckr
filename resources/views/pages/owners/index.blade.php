@@ -1,0 +1,1 @@
+<a href="{{ route('owners.edit', $user->id) }}" class="btn btn-outline-warning">Edit Profile</a>
