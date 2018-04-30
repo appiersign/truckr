@@ -21,7 +21,10 @@ class CreateTrucksTable extends Migration
             $table->string('make')->index();
             $table->string('model')->index();
             $table->string('type');
+            $table->date('year_of_make');
+            $table->string('color')->nullable();
             $table->string('capacity');
+            $table->unsignedInteger('owner_id');
             $table->timestamps();
         });
     }

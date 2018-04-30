@@ -14,7 +14,7 @@ class AddOwnerIdColumnToTrucks extends Migration
     public function up()
     {
         Schema::table('trucks', function (Blueprint $table) {
-            //
+            $table->foreign('owner_id')->references('id')->on('owners')->onDelete('cascade');
         });
     }
 
@@ -26,7 +26,7 @@ class AddOwnerIdColumnToTrucks extends Migration
     public function down()
     {
         Schema::table('trucks', function (Blueprint $table) {
-            //
+            $table->dropForeign('trucks_owner_id_foreign');
         });
     }
 }
