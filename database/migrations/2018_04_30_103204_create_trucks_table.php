@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTruckersTable extends Migration
+class CreateTrucksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTruckersTable extends Migration
      */
     public function up()
     {
-        Schema::create('truckers', function (Blueprint $table) {
+        Schema::create('trucks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('truckr_id')->index();
             $table->string('license_plate')->index()->unique();
@@ -22,8 +22,6 @@ class CreateTruckersTable extends Migration
             $table->string('model')->index();
             $table->string('type');
             $table->string('capacity');
-            $table->unsignedSmallInteger('owner_id')->index();
-            $table->foreign('owner_id')->references('id')->on('drivers')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -35,6 +33,6 @@ class CreateTruckersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('truckers');
+        Schema::dropIfExists('trucks');
     }
 }
