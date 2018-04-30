@@ -26,10 +26,10 @@ class CreateTruck extends FormRequest
     {
         return [
             'license_plate' => 'required|min:5',
-            'model' => 'required|min:3',
-            'make' => 'required|min:3',
-            'type' => 'required',
-            'capacity' => 'required'
+            'model'         => 'required|min:3',
+            'make'          => 'required|min:3',
+            'type'          => 'required|in:flatbed,reefer,stepdeck,van,container truck',
+            'capacity'      => 'required'
         ];
     }
 }
