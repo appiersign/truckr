@@ -21,5 +21,6 @@ Route::resource('locations', 'LocationController');
 Route::resource('messages', 'MessageController');
 Route::resource('trackers', 'TrackerController');
 Route::resource('trips', 'TripController');
+Route::resource('trucks', 'TruckController');
 
 Route::get('/home', 'HomeController@index')->name('home');
