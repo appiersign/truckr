@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CreateTruck extends FormRequest
 {
@@ -13,7 +14,7 @@ class CreateTruck extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::user()->type === 'owner';
     }
 
     /**
@@ -24,7 +25,11 @@ class CreateTruck extends FormRequest
     public function rules()
     {
         return [
-            //
+            'license_plate' => 'required|min:5',
+            'model' => 'required|min:3',
+            'make' => 'required|min:3',
+            'type' => 'required',
+            'capacity' => 'required'
         ];
     }
 }
