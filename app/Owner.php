@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Owner extends Model
 {
     protected $fillable = ['business_name', 'user_id', 'truckr_id'];
+
+    public function trucks()
+    {
+        return $this->hasMany(Truck::class);
+    }
 }

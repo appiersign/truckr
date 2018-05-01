@@ -8,6 +8,13 @@
                     <div class="card-header">Add Truck</div>
 
                     <div class="card-body">
+                        @if(\Illuminate\Support\Facades\Session::has('error'))
+                            <div class="alert alert-danger">
+                                <p>
+                                    {{ \Illuminate\Support\Facades\Session::get('error') }}
+                                </p>
+                            </div>
+                        @endif
                         <form method="POST" action="{{ route('trucks.store') }}">
                             @csrf
 
