@@ -14,8 +14,7 @@ class CreateTruck extends FormRequest
      */
     public function authorize()
     {
-//        return Auth::user()['account_type'] === 'owner';
-        return true;
+        return Auth::user()['account_type'] === 'owner';
     }
 
     /**

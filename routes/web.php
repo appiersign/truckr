@@ -23,4 +23,6 @@ Route::resource('trackers', 'TrackerController');
 Route::resource('trips', 'TripController');
 Route::resource('trucks', 'TruckController');
 
+Route::get('owners/{owner}/trucks', 'OwnerController@trucks')->name('owners.trucks');
+
 Route::get('/home', 'HomeController@index')->name('home');
