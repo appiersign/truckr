@@ -24,3 +24,7 @@ Route::resource('trips', 'TripController');
 Route::resource('trucks', 'TruckController');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('dashboard', function(){
+    return view('layouts.dashboard');
+});
