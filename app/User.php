@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Loader::class);
     }
+
+    public function owner()
+    {
+        return $this->hasOne(Owner::class);
+    }
 }

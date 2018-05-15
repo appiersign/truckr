@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTruck;
+use App\Jobs\CreateTruckJob;
+use App\Owner;
+use App\Truck;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class TruckController extends Controller
 {
@@ -33,24 +37,35 @@ class TruckController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateTruck $createTruck
+     * @param User $user
+     * @return array
      */
-    public function store(CreateTruck $createTruck, User $user)
+    public function store(CreateTruck $createTruck)
     {
-        return Auth::user();
-        return [$createTruck->validated()];
+        $createTruck->validated();
+        try {
+            $job = new CreateTruckJob($createTruck->all());
+            $this->dispatch($job);
+            Session::remove('error');
+            Session::put('success', 'Truck added!');
+            $owner = User::find(Auth::id())->owner->id;
+            return redirect()->route('owners.trucks', ['owner' => $owner]);
+        } catch (\Exception $exception) {
+            Session::put('error', $exception->getMessage());
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Truck $truck
+     * @return Truck
      */
-    public function show($id)
+    public function show(Truck $truck)
     {
-        //
+        return $truck;
     }
 
     /**

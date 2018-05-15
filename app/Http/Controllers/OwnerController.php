@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\CreateOwnerJob;
+use App\Owner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -97,5 +98,12 @@ class OwnerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function trucks(Owner $owner)
+    {
+        $user = Auth::user();
+        $trucks = $owner->trucks;
+        return view('pages.owners.trucks', compact('user', 'trucks'));
     }
 }

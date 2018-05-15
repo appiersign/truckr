@@ -117,7 +117,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function registered(Request $request, User $user)
+    protected function registered(User $user)
     {
         if ($user <> null) {
             if ($user->account_type === 'driver') {
